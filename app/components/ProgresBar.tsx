@@ -11,14 +11,14 @@ interface ProgresBarInterface {
 const ProgresBar = ({
   isStarted,
   setIsStarted,
-  onLoadingEnded
+  onLoadingEnded,
+  duration
 }: ProgresBarInterface) => {
   const [value, setValue] = useState<number>(0)
 
   if (isStarted) {
     setTimeout(() => {
       if (value < 100) {
-        console.log(value + 1)
         const newValue: number = value + 1
         setValue(newValue)
       }
@@ -27,7 +27,7 @@ const ProgresBar = ({
         setIsStarted(false)
         setValue(0)
       }
-    }, 50)
+    }, duration)
   }
 
   useEffect(() => {}, [])
