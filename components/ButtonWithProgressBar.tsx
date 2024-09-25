@@ -1,7 +1,7 @@
 'use client'
 import { useContext, useState } from 'react'
 import ProgresBar from './ProgresBar'
-import { MainContext } from '../page'
+import { MainContext } from '../app/fonts/page'
 
 const ButtonWithProgressBar = (props) => {
   const { state, updateState } = useContext(MainContext)

@@ -1,10 +1,19 @@
 'use client'
 import { createContext, useEffect, useState } from 'react'
-import ButtonWithProgressBar from './components/ButtonWithProgressBar'
-import Layout from './layout/Layout'
-import { useObject } from './hooks'
-import SingleItemCardStyles from './components/SingleItemCard'
-import { exampleStructure } from './components/exampleStructure'
+import ButtonWithProgressBar from '../../components/ButtonWithProgressBar'
+import Layout from '../layout/Layout'
+import { useObject } from '../hooks'
+import SingleItemCardStyles from '../../components/SingleItemCard'
+import { exampleStructure } from '../../components/exampleStructure'
+
+const WarehouseAmount = ({ state, level }) => {
+  if (state?.warehouse && state?.warehouse[level.itemName]) {
+    return <div>Ilość: {state.warehouse[level.itemName]}</div>
+  } else {
+    return <div>Ilość: 0</div>
+  }
+}
+
 interface MainContext {
   state: any
   updateState: (name: string, value: any) => void
@@ -14,12 +23,15 @@ export const MainContext = createContext({})
 
 export default function App() {
   const { state, updateState } = useObject({
-    levels: exampleStructure.levels
+    levels: exampleStructure.levels,
+    warehouse: undefined,
+    gold: 0
   })
 
   useEffect(() => {
     console.log('state', state)
   }, [state])
+  useEffect(() => {}, [])
   return (
     <Layout>
       <MainContext.Provider
@@ -30,7 +42,16 @@ export default function App() {
       >
         <div>
           {/* Magazyn */}
-          {/* {state.levels.map()} */}
+          {state.levels.map((level, index) => {
+            return (
+              <div key={index}>
+                <div>{level.itemName}</div>
+                <WarehouseAmount level={level} state={state} />
+              </div>
+            )
+          })}
+
+          {/* End Magazyn */}
         </div>
 
         {/* <MappedElements > */}
