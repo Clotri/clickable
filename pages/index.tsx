@@ -1,8 +1,11 @@
 'use client'
 
 import { createContext, useEffect } from 'react'
-import { exampleStructure } from '../components/exampleStructure'
-import { useObject } from '../hooks/useObject'
+import { exampleStructure } from '@/components/exampleStructure'
+import { useObject } from '@/hooks/useObject'
+import Layout from '@/app/layout/Layout'
+import ButtonWithProgressBar from '@/components/ButtonWithProgressBar'
+import { MainContext } from '@/components/__contexts'
 
 const WarehouseAmount = ({ state, level }) => {
   if (state?.warehouse && state?.warehouse[level.itemName]) {
@@ -11,13 +14,6 @@ const WarehouseAmount = ({ state, level }) => {
     return <div>Ilość: 0</div>
   }
 }
-
-interface MainContext {
-  state: any
-  updateState: (name: string, value: any) => void
-}
-
-export const MainContext = createContext({})
 
 export default function App() {
   const { state, updateState } = useObject({
@@ -39,6 +35,7 @@ export default function App() {
         }}
       >
         <div>
+          <div className="bg-red-300">asdasd</div>
           {/* Magazyn */}
           {state.levels.map((level, index) => {
             return (
