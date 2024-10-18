@@ -1,10 +1,10 @@
 'use client'
 import { useContext, useState } from 'react'
 import ProgresBar from './ProgresBar'
-import { MainContext } from '@/components/__contexts'
+import { MainIndexContext } from '@/context/MainIndexContext'
 
 const ButtonWithProgressBar = (props) => {
-  const { state, updateState } = useContext(MainContext)
+  const { state, updateState } = useContext(MainIndexContext)
   const { itemName, duration } = props
   const [isStarted, setIsStarted] = useState<boolean>(false)
 
@@ -17,7 +17,7 @@ const ButtonWithProgressBar = (props) => {
       state.warehouse
     )
 
-    const warehouse = state.warehouse || {}
+    const warehouse = state?.warehouse || {}
     const updatedWarehouse = {
       ...warehouse,
       [itemName]: warehouse[itemName] ? warehouse[itemName] + 1 : 1
